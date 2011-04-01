@@ -8,7 +8,7 @@
 #   WTF/LOC too high.
 require "resque-meta"
 require "resque_scheduler"
-require "activesupport"
+require "active_support"
 
 module Jobs
   require "jobs/base"
