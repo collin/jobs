@@ -20,6 +20,10 @@ module Jobs
         def []= key, value
           nil
         end
+        
+        def save
+          false
+        end
       end
     end
   
