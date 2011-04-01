@@ -6,10 +6,11 @@
 # The dump format is {"class":"ClassName", "id":"4939"}
 # FIXME: use of *splat operator got waayyy out of hand in this module. 
 #   WTF/LOC too high.
-require "jobs/base"
-require "jobs/unit_of_work"
 
 module Jobs
+  require "jobs/base"
+  require "jobs/unit_of_work"
+
   # Load JSON args, understanding how to load an ActiveRecord object from dump_args
   def self.load_args(args)
     args.map do |arg|
