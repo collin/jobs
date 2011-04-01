@@ -1,4 +1,4 @@
-class Jobs
+module Jobs
   class UnitOfWork
     module NoMetadata
       class << self
