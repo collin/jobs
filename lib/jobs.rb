@@ -6,6 +6,9 @@
 # The dump format is {"class":"ClassName", "id":"4939"}
 # FIXME: use of *splat operator got waayyy out of hand in this module. 
 #   WTF/LOC too high.
+require "resque-meta"
+require "resque_scheduler"
+require "activesupport"
 
 module Jobs
   require "jobs/base"
