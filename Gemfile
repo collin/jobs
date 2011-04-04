@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 
-gem "resque", "1.13.0"
-gem "resque-meta", "1.0.3"
-gem "resque-scheduler", "1.9.8"
+gem "resque", "~> 1.15.0"
+gem "resque-meta", "~> 1.0.3"
+gem "resque-scheduler", "~> 1.9.8"
 gem "activesupport", "~> 3.0"
 
 

@@ -19,16 +19,16 @@ module Jobs
       end
     end
   
-    # peform user Jobs.load_args to decode hashes representing ActiveRecord objects in Resque
-    def self.perform(unit_of_work)
-      new.send *unit_of_work.loaded_args.unshift(unit_of_work.meta).unshift(unit_of_work.job_action)
-    end
-  
     # Override in your job to control the metadata id. It is
     # passed the same arguments as `perform`, that is, your job's
     # payload.
     def self.meta_id(unit_of_work)
       Digest::SHA1.hexdigest([ Time.now.to_f, rand, self, unit_of_work.args ].join)
+    end
+  
+    # peform user Jobs.load_args to decode hashes representing ActiveRecord objects in Resque
+    def self.perform(unit_of_work)
+      new.send *unit_of_work.loaded_args.unshift(unit_of_work.meta).unshift(unit_of_work.job_action)
     end
   
     # Enqueues a job in Resque and return the association metadata.
