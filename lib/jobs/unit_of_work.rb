@@ -84,7 +84,7 @@ module Jobs
     end
   
     def scheduled_at
-      meta['scheduled_at']
+      Time.parse(meta['scheduled_at'])
     end
   end
 end  
