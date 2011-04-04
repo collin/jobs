@@ -14,6 +14,8 @@ module Jobs
   require "jobs/base"
   require "jobs/unit_of_work"
 
+  
+
   # Load JSON args, understanding how to load an ActiveRecord object from dump_args
   def self.load_args(args)
     args.map do |arg|
@@ -28,8 +30,8 @@ module Jobs
   # Dump JSON args, with a special format for ActiveRecord objects to be parsed by load_args
   def self.dump_args(args)
     args.map do |arg|
-      if arg.is_a?(ActiveRecord::Base)
-        {"class" => arg.class.to_s, "id" => arg.id}
+      if arg.respond_to?(:find) && arg.respond_to?(:to_param)
+        {"class" => arg.class.to_s, "id" => arg.to_param}
       else
         arg
       end
