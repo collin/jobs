@@ -19,7 +19,7 @@ module Jobs
     args.map do |arg|
       if arg.is_a?(Hash) && arg.key?("class") && arg.key?("id")
         arg["class"].constantize.find(arg["id"])
-      if arg.is_a?(Hash) && arg.key("class")
+      elsif arg.is_a?(Hash) && arg.key("class")
         arg["class"].constantize
       else
         arg
@@ -32,7 +32,7 @@ module Jobs
     args.map do |arg|
       if arg.class.respond_to?(:find) && arg.respond_to?(:to_param)
         {"class" => arg.class.to_s, "id" => arg.to_param}
-      if arg.is_a?(Class)
+      elsif arg.is_a?(Class)
         {"class" => arg.to_s}
       else
         arg
