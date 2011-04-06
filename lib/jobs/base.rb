@@ -28,8 +28,8 @@ module Jobs
       perform_unit_of_work Jobs::UnitOfWork.new(self, job_action, args)
     end
     
-    def self.perform_unit_of_work unit_of_work
-      new.send *unit_of_work.loaded_args.unshift(get_meta meta_id).unshift(unit_of_work.job_action)      
+    def self.perform_unit_of_work(unit_of_work)
+      new.send *unit_of_work.loaded_args.unshift(unit_of_work.meta).unshift(unit_of_work.job_action)      
     end
   
     # Override in your job to control the metadata id. It is
