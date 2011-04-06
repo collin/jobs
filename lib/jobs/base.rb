@@ -2,8 +2,12 @@ module Jobs
   class Base
     extend Resque::Plugins::Meta
   
-    def self.queue_name
-      name.underscore
+    class << self
+      def queue_name
+        name.underscore
+      end
+      
+      alias queue queue_name
     end
   
     # Set @queue because resque expects every worker class to provide one.
@@ -21,8 +25,11 @@ module Jobs
   
     # peform user Jobs.load_args to decode hashes representing ActiveRecord objects in Resque
     def self.perform(meta_id, job_action, *args)
-      unit_of_work = Jobs::UnitOfWork.new(self, job_action, args)
-      new.send *unit_of_work.loaded_args.unshift(get_meta meta_id).unshift(unit_of_work.job_action)
+      perform_unit_of_work Jobs::UnitOfWork.new(self, job_action, args)
+    end
+    
+    def self.perform_unit_of_work unit_of_work
+      new.send *unit_of_work.loaded_args.unshift(get_meta meta_id).unshift(unit_of_work.job_action)      
     end
   
     # Override in your job to control the metadata id. It is

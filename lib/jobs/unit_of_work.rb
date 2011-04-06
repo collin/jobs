@@ -68,7 +68,7 @@ module Jobs
     end
   
     def perform
-      job_class.perform(self)
+      job_class.perform_unit_of_work(self)
     end
   
     def meta_id

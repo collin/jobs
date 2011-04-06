@@ -19,7 +19,7 @@ module Jobs
     args.map do |arg|
       if arg.is_a?(Hash) && arg.key?("class") && arg.key?("id")
         arg["class"].constantize.find(arg["id"])
-      elsif arg.is_a?(Hash) && arg.key("class")
+      elsif arg.is_a?(Hash) && arg.key?("class")
         arg["class"].constantize
       else
         arg
