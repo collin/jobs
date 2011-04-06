@@ -30,8 +30,8 @@ module Jobs
   # Dump JSON args, with a special format for ActiveRecord objects to be parsed by load_args
   def self.dump_args(args)
     args.map do |arg|
-      if arg.class.respond_to?(:find) && arg.respond_to?(:to_param)
-        {"class" => arg.class.to_s, "id" => arg.to_param}
+      if arg.class.respond_to?(:find) && arg.respond_to?(:id)
+        {"class" => arg.class.to_s, "id" => arg.id}
       elsif arg.is_a?(Class)
         {"class" => arg.to_s}
       else
