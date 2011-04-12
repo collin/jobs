@@ -52,13 +52,13 @@ module Jobs
     def self.enqueue_at(unit_of_work, at_time)
       meta = Resque::Plugins::Meta::Metadata.new({'meta_id' => meta_id(unit_of_work), 'job_class' => self.to_s})
       meta.save
-      Resque.enqueue_at(at_time, self, unit_of_work.job_action, *unit_of_work.args)
+      Resque.enqueue_at(at_time, self, meta.meta_id, unit_of_work.job_action, *unit_of_work.args)
       meta
     end
 
     # Unschedules a delayed job for a unit of work.
     def self.remove_delayed(unit_of_work)
-      Resque.remove_delayed(self, unit_of_work.job_action, *unit_of_work.args)
+      Resque.remove_delayed(self, unit_of_work.meta.meta_id, unit_of_work.job_action, *unit_of_work.args)
     end
 
     # Work on chron schtuffs
