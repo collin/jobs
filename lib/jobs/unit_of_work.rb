@@ -85,7 +85,7 @@ module Jobs
   
     def scheduled_at
       if meta['scheduled_at'].present?
-        Time.parse(meta['scheduled_at'])
+        DateTime.parse(meta['scheduled_at'])
       else
         nil
       end
