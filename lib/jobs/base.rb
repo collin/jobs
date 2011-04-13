@@ -61,6 +61,10 @@ module Jobs
       Resque.remove_delayed(self, unit_of_work.meta.meta_id, unit_of_work.job_action, *unit_of_work.args)
     end
 
+    def self.scheduled(queue, klass_name, job_action, *args)
+      send(job_action, *args).enqueue
+    end
+
     # Work on chron schtuffs
     # # Compatibility
     # def self.schedule
