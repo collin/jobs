@@ -24,6 +24,10 @@ module Jobs
         def save
           false
         end
+        
+        def meta_id
+          nil
+        end
       end
     end
   
