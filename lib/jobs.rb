@@ -8,7 +8,7 @@
 #   WTF/LOC too high.
 require "resque-meta"
 require "resque_scheduler"
-require "active_support"
+require "active_support/core_ext"
 
 module Jobs
   require "jobs/base"
@@ -18,7 +18,7 @@ module Jobs
   def self.load_args(args)
     args.map do |arg|
       if arg.is_a?(Hash) && arg.key?("class") && arg.key?("id")
-        arg["class"].constantize.find(arg["id"])
+        arg["class"].constantize.find_by_id(arg["id"]) || "#{arg['class']}<#{arg['id']}>"
       elsif arg.is_a?(Hash) && arg.key?("class")
         arg["class"].constantize
       else
