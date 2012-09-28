@@ -23,7 +23,7 @@ module Jobs
   
     # peform user Jobs.load_args to decode hashes representing ActiveRecord objects in Resque
     def self.perform(meta_id, job_action, *args)
-      unit_of_work = Jobs::UnitOfWork.new(self, job_action, args)
+      unit_of_work = @unit_of_work_class.new(self, job_action, args)
       new.send *unit_of_work.loaded_args.unshift(get_meta meta_id).unshift(unit_of_work.job_action)
     end
     
