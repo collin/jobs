@@ -11,8 +11,8 @@ require "resque_scheduler"
 require "active_support/core_ext"
 
 module Jobs
-  require "jobs/base"
   require "jobs/unit_of_work"
+  require "jobs/base"
 
   # Load JSON args, understanding how to load an ActiveRecord object from dump_args
   def self.load_args(args)

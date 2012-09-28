@@ -2,6 +2,8 @@ module Jobs
   class Base
     extend Resque::Plugins::Meta
   
+    @unit_of_work_class = Jobs::UnitOfWork
+
     def self.queue_name
       name.underscore
     end
@@ -13,7 +15,7 @@ module Jobs
   
     def self.method_missing(name, *args)
       if public_instance_methods.include?(name)
-        Jobs::UnitOfWork.new(self, name, args)
+        @unit_of_work_class.new(self, name, args)
       else
         super
       end
